@@ -13,6 +13,7 @@ from .views import (
     VulnerabilitySlaViewSet,
     SecIntelFeedsViewSet,
     InfraConfigViewSet,
+    BrandingViewSet,
 )
 from .routers import DefaultSettingsRouter
 
@@ -48,6 +49,12 @@ settings_router.register(
     r"sec-intel-feeds",
     SecIntelFeedsViewSet,
     basename="sec-intel-feeds",
+)
+
+settings_router.register(
+    r"branding",
+    BrandingViewSet,
+    basename="branding",
 )
 
 if getattr(settings, "ENABLE_INFRA_CONFIG_MANAGEMENT", False):

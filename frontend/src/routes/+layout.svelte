@@ -28,6 +28,7 @@
 	import { getFlash } from 'sveltekit-flash-message';
 	import { page } from '$app/stores';
 	import { clientSideToast } from '$lib/utils/stores';
+	import { generateRamp, rampToCssVars } from '$lib/utils/colorRamp';
 
 	initializeModalStore();
 	initializeToastStore();
@@ -108,9 +109,34 @@
 			window.location.href = $page.url.href;
 		}
 	});
+
+	let branding = $derived($page.data?.branding);
+	let brandingVisible = $derived(!!$page.data?.user || branding?.show_to_unauthenticated !== false);
+
+	let brandingCss = $derived.by(() => {
+		if (!branding) return '';
+		const blocks: string[] = [];
+		if (branding.primary_color) {
+			blocks.push(rampToCssVars('primary', generateRamp(branding.primary_color)));
+		}
+		if (branding.secondary_color) {
+			blocks.push(rampToCssVars('secondary', generateRamp(branding.secondary_color)));
+		}
+		if (!blocks.length) return '';
+		return `[data-theme='cisotheme'] {\n${blocks.join('\n')}\n}`;
+	});
 </script>
 
-<svelte:head><link rel="icon" href="/favicon.ico" /></svelte:head>
+<svelte:head>
+	{#if brandingVisible && branding?.favicon_data_uri}
+		<link rel="icon" href={branding.favicon_data_uri} />
+	{:else}
+		<link rel="icon" href="/favicon.ico" />
+	{/if}
+	{#if brandingCss}
+		{@html `<style>${brandingCss}</style>`}
+	{/if}
+</svelte:head>
 <Dialog components={modalRegistry} />
 <Toast zIndex="z-[1000]" />
 {@render children?.()}

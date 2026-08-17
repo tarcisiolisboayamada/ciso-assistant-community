@@ -724,3 +724,102 @@ class SecIntelFeedsSerializer(serializers.ModelSerializer):
             instance.save(update_fields=["value"])
 
         return instance
+
+
+class BrandingSerializer(serializers.ModelSerializer):
+    """
+    Serializer for branding settings (custom client name, logo, favicon,
+    and accent colors), stored as a JSON object in the 'value' field of a
+    GlobalSettings instance (singleton). Logo/favicon are stored as data
+    URIs directly in the JSON value; there is no separate file-storage
+    pipeline for this feature.
+    """
+
+    MAX_DATA_URI_LENGTH = 500_000
+
+    client_name = serializers.CharField(
+        source="value.client_name",
+        required=False,
+        default="",
+        allow_blank=True,
+        max_length=100,
+    )
+    logo_data_uri = serializers.CharField(
+        source="value.logo_data_uri", required=False, default="", allow_blank=True
+    )
+    favicon_data_uri = serializers.CharField(
+        source="value.favicon_data_uri", required=False, default="", allow_blank=True
+    )
+    primary_color = serializers.CharField(
+        source="value.primary_color", required=False, default="", allow_blank=True
+    )
+    secondary_color = serializers.CharField(
+        source="value.secondary_color", required=False, default="", allow_blank=True
+    )
+    show_to_unauthenticated = serializers.BooleanField(
+        source="value.show_to_unauthenticated", required=False, default=True
+    )
+
+    class Meta:
+        model = GlobalSettings
+        exclude = [
+            "id",
+            "created_at",
+            "updated_at",
+            "name",
+            "value",
+            "folder",
+            "is_published",
+        ]
+        read_only_fields = ["name"]
+
+    def _validate_data_uri(self, value):
+        if not value:
+            return value
+        if not value.startswith("data:image/"):
+            raise serializers.ValidationError("Must be an image data URI.")
+        if len(value) > self.MAX_DATA_URI_LENGTH:
+            raise serializers.ValidationError("Image is too large.")
+        return value
+
+    def validate_logo_data_uri(self, value):
+        return self._validate_data_uri(value)
+
+    def validate_favicon_data_uri(self, value):
+        return self._validate_data_uri(value)
+
+    def _validate_hex_color(self, value):
+        if value and not re.fullmatch(r"#[0-9a-fA-F]{6}", value):
+            raise serializers.ValidationError("Must be a hex color like #1F99A3.")
+        return value
+
+    def validate_primary_color(self, value):
+        return self._validate_hex_color(value)
+
+    def validate_secondary_color(self, value):
+        return self._validate_hex_color(value)
+
+    def update(self, instance, validated_data):
+        current_value_dict = instance.value if isinstance(instance.value, dict) else {}
+        new_value_dict = validated_data.get("value", {})
+        value_changed = False
+
+        for field_name, field_instance in self.fields.items():
+            if field_name in self.Meta.read_only_fields:
+                continue
+            if not hasattr(
+                field_instance, "source"
+            ) or not field_instance.source.startswith("value."):
+                continue
+            if field_name in new_value_dict:
+                source_key = field_instance.source.split(".")[-1]
+                new_val = new_value_dict[field_name]
+                if current_value_dict.get(source_key) != new_val:
+                    current_value_dict[source_key] = new_val
+                    value_changed = True
+
+        if value_changed:
+            instance.value = current_value_dict
+            instance.save(update_fields=["value"])
+
+        return instance
