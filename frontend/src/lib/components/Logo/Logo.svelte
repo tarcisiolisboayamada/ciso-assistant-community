@@ -13,7 +13,9 @@
 {#if variant === 'full'}
 	<div class="lockup" style:height="{height}px">
 		<img class="c" height={height} width={height} src={ciso} alt="CISO TSI icon" data-testid="logo-image" />
-		<span class="wordmark" style:font-size="{height * 0.34}px">CISO TSI</span>
+		<span class="wordmark" style:font-size="{height * 0.34}px"
+			><span class="wordmark-ciso">CISO</span><span class="wordmark-tsi"> TSI</span></span
+		>
 	</div>
 {:else}
 	<img class="c" {height} {width} src={ciso} alt="CISO TSI icon" data-testid="logo-image" />
@@ -26,9 +28,18 @@
 		gap: 0.5em;
 	}
 	.wordmark {
-		font-weight: 800;
 		letter-spacing: -0.01em;
-		color: var(--color-primary-500, #4b3fd6);
 		white-space: nowrap;
+	}
+	.wordmark-ciso {
+		font-weight: 800;
+		color: #010622;
+	}
+	.wordmark-tsi {
+		font-weight: 300;
+		color: #2950b2;
+	}
+	:global(.dark) .wordmark-ciso {
+		color: var(--color-surface-50, #fff);
 	}
 </style>
