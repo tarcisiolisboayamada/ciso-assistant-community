@@ -74,8 +74,12 @@ export function generateRamp(hex: string): Record<(typeof STEP_NAMES)[number], O
 }
 
 /** Renders a generated ramp as `--color-{prefix}-{step}: oklch(...)` declarations. */
-export function rampToCssVars(prefix: 'primary' | 'secondary', ramp: Record<number, Oklch>): string {
+export function rampToCssVars(
+	prefix: 'primary' | 'secondary',
+	ramp: Record<number, Oklch>
+): string {
 	return STEP_NAMES.map(
-		(step) => `--color-${prefix}-${step}: oklch(${ramp[step].L}% ${ramp[step].C} ${ramp[step].H}deg);`
+		(step) =>
+			`--color-${prefix}-${step}: oklch(${ramp[step].L}% ${ramp[step].C} ${ramp[step].H}deg);`
 	).join('\n');
 }
