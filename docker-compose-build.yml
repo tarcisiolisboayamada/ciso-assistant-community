@@ -11,6 +11,7 @@ services:
       - ALLOWED_HOSTS=backend,localhost
       - CISO_ASSISTANT_URL=https://localhost:8443
       - DJANGO_DEBUG=True
+      - ENABLE_CHAT=True
       - HOME=/tmp
       - XDG_CACHE_HOME=/tmp/.cache
       - XDG_CONFIG_HOME=/tmp/.config
