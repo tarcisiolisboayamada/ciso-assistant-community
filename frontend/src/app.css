@@ -1,3 +1,8 @@
+/* Brand typeface (design system tokens): Archivo for UI text, IBM Plex Mono for tabular figures
+   (risk scores, IDs, dates). Must stay the first rule in the file — CSS requires @import to
+   precede all other rules except @charset. */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
 /* Restrict the Tailwind source scan to src/ (the default auto-detection can crawl the whole project tree, which makes the app.css transform take minutes in the enterprise .build overlay). */
 @import 'tailwindcss' source('.');
 @plugin '@tailwindcss/forms';

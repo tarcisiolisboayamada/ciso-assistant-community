@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
-  <g fill="#010622"><circle cx="34" cy="34" r="5"></circle><circle cx="64" cy="34" r="5"></circle><circle cx="94" cy="34" r="5"></circle><circle cx="34" cy="64" r="5"></circle><circle cx="94" cy="64" r="5"></circle><circle cx="34" cy="94" r="5"></circle><circle cx="64" cy="94" r="5"></circle><circle cx="94" cy="94" r="5"></circle></g>
-  <path d="M34 94 L64 64 L94 34" stroke="#1F99A3" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
-  <circle cx="34" cy="94" r="6.5" fill="#1F99A3"></circle><circle cx="94" cy="34" r="6.5" fill="#1F99A3"></circle><circle cx="64" cy="64" r="9.5" fill="#1F99A3"></circle>
+  <g fill="#16093F"><circle cx="34" cy="34" r="5"></circle><circle cx="64" cy="34" r="5"></circle><circle cx="94" cy="34" r="5"></circle><circle cx="34" cy="64" r="5"></circle><circle cx="94" cy="64" r="5"></circle><circle cx="34" cy="94" r="5"></circle><circle cx="64" cy="94" r="5"></circle><circle cx="94" cy="94" r="5"></circle></g>
+  <path d="M34 94 L64 64 L94 34" stroke="#5C29FF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+  <circle cx="34" cy="94" r="6.5" fill="#5C29FF"></circle><circle cx="94" cy="34" r="6.5" fill="#5C29FF"></circle><circle cx="64" cy="64" r="9.5" fill="#5C29FF"></circle>
 </svg>

@@ -5,8 +5,8 @@ services:
     pull_policy: always
     restart: always
     environment:
-      - ALLOWED_HOSTS=backend,localhost
-      - CISO_ASSISTANT_URL=https://localhost:8443
+      - ALLOWED_HOSTS=backend,bravorisk.ai
+      - CISO_ASSISTANT_URL=https://bravorisk.ai:8443
       - DJANGO_DEBUG=True
       - AUTH_TOKEN_TTL=7200
       - HOME=/tmp
@@ -41,8 +41,8 @@ services:
         condition: service_healthy
     restart: always
     environment:
-      - ALLOWED_HOSTS=backend,localhost
-      - CISO_ASSISTANT_URL=https://localhost:8443
+      - ALLOWED_HOSTS=backend,bravorisk.ai
+      - CISO_ASSISTANT_URL=https://bravorisk.ai:8443
       - DJANGO_DEBUG=False
       - AUTH_TOKEN_TTL=7200
       - HOME=/tmp
@@ -71,7 +71,7 @@ services:
     container_name: frontend
     environment:
       - PUBLIC_BACKEND_API_URL=http://backend:8000/api
-      - PUBLIC_BACKEND_API_EXPOSED_URL=https://localhost:8443/api
+      - PUBLIC_BACKEND_API_EXPOSED_URL=https://bravorisk.ai:8443/api
       - PROTOCOL_HEADER=x-forwarded-proto
       - HOST_HEADER=x-forwarded-host
       - HOME=/tmp
@@ -141,7 +141,7 @@ services:
     container_name: caddy
     image: caddy:2.11.4
     environment:
-      - CISO_ASSISTANT_URL=https://localhost:8443
+      - CISO_ASSISTANT_URL=https://bravorisk.ai:8443
     depends_on:
       backend:
         condition: service_healthy
