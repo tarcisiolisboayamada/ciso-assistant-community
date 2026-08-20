@@ -741,6 +741,9 @@ class BrandingSerializer(serializers.ModelSerializer):
     logo_data_uri = serializers.CharField(
         source="value.logo_data_uri", required=False, default="", allow_blank=True
     )
+    client_logo_data_uri = serializers.CharField(
+        source="value.client_logo_data_uri", required=False, default="", allow_blank=True
+    )
     favicon_data_uri = serializers.CharField(
         source="value.favicon_data_uri", required=False, default="", allow_blank=True
     )
@@ -777,6 +780,9 @@ class BrandingSerializer(serializers.ModelSerializer):
         return value
 
     def validate_logo_data_uri(self, value):
+        return self._validate_data_uri(value)
+
+    def validate_client_logo_data_uri(self, value):
         return self._validate_data_uri(value)
 
     def validate_favicon_data_uri(self, value):

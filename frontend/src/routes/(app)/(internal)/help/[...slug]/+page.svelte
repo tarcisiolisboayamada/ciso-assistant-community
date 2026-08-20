@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/state';
+
 	interface Props {
 		data: { title: string; description?: string; html: string };
 	}
@@ -7,7 +9,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.title} | CISO TSI</title>
+	<title>{data.title} | {page.data?.branding?.client_name || 'CISO TSI'}</title>
 </svelte:head>
 
 <article class="prose dark:prose-invert max-w-3xl">

@@ -5,6 +5,7 @@ import type { LayoutServerLoad } from './$types';
 interface BrandingSettings {
 	client_name: string;
 	logo_data_uri: string;
+	client_logo_data_uri: string;
 	favicon_data_uri: string;
 	primary_color: string;
 	secondary_color: string;
@@ -14,6 +15,7 @@ interface BrandingSettings {
 const EMPTY_BRANDING: BrandingSettings = {
 	client_name: '',
 	logo_data_uri: '',
+	client_logo_data_uri: '',
 	favicon_data_uri: '',
 	primary_color: '',
 	secondary_color: '',

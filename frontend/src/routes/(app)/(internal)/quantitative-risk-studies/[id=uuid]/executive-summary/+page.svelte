@@ -18,7 +18,7 @@
 </script>
 
 <svelte:head>
-	<title>{m.executiveSummary()} - CISO TSI</title>
+	<title>{m.executiveSummary()} - {page.data?.branding?.client_name || 'CISO TSI'}</title>
 </svelte:head>
 
 <main class="p-6 space-y-6">

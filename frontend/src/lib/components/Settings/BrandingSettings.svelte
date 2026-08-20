@@ -41,7 +41,10 @@
 		});
 	}
 
-	async function handleFileInput(event: Event, field: 'logo_data_uri' | 'favicon_data_uri') {
+	async function handleFileInput(
+		event: Event,
+		field: 'logo_data_uri' | 'client_logo_data_uri' | 'favicon_data_uri'
+	) {
 		const input = event.target as HTMLInputElement;
 		const file = input.files?.[0];
 		if (!file) return;
@@ -86,6 +89,32 @@
 		<input class="input" type="file" accept="image/*" onchange={(e) => handleFileInput(e, 'logo_data_uri')} />
 		{#if branding.logo_data_uri}
 			<img src={branding.logo_data_uri} alt="Logo preview" class="h-12 mt-2" />
+		{/if}
+	</label>
+
+	<label class="block">
+		<span class="text-sm font-medium">Client logo (shown below the main logo)</span>
+		<input
+			class="input"
+			type="file"
+			accept="image/*"
+			onchange={(e) => handleFileInput(e, 'client_logo_data_uri')}
+		/>
+		{#if branding.client_logo_data_uri}
+			<img src={branding.client_logo_data_uri} alt="Client logo preview" class="h-12 mt-2" />
+		{/if}
+	</label>
+
+	<label class="block">
+		<span class="text-sm font-medium">Client logo (shown below the main logo)</span>
+		<input
+			class="input"
+			type="file"
+			accept="image/*"
+			onchange={(e) => handleFileInput(e, 'client_logo_data_uri')}
+		/>
+		{#if branding.client_logo_data_uri}
+			<img src={branding.client_logo_data_uri} alt="Client logo preview" class="h-12 mt-2" />
 		{/if}
 	</label>
 

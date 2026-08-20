@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import type { ActionData, PageData } from './$types';
 	import Logo from '$lib/components/Logo/Logo.svelte';
 	import Greetings from './Greetings.svelte';
@@ -14,7 +15,7 @@
 </script>
 
 <svelte:head>
-	<title>CISO TSI | {m.login()}</title>
+	<title>{page.data?.branding?.client_name || 'CISO TSI'} | {m.login()}</title>
 </svelte:head>
 
 <main class="lg:relative h-screen bg-surface-200-800">

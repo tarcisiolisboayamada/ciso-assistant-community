@@ -158,7 +158,7 @@
 </script>
 
 <svelte:head>
-	<title>CISO TSI | {safeTranslate(displayTitle)}</title>
+	<title>{$page.data?.branding?.client_name || 'CISO TSI'} | {safeTranslate(displayTitle)}</title>
 </svelte:head>
 
 <!-- App Shell -->

@@ -8,8 +8,8 @@ services:
         PYTHON_IMAGE: ${PYTHON_IMAGE:-python:3.14-slim}
     restart: always
     environment:
-      - ALLOWED_HOSTS=backend,localhost
-      - CISO_ASSISTANT_URL=https://localhost:8443
+      - ALLOWED_HOSTS=backend,bravorisk.ai
+      - CISO_ASSISTANT_URL=https://bravorisk.ai:8443
       - DJANGO_DEBUG=True
       - ENABLE_CHAT=True
       - HOME=/tmp
@@ -40,8 +40,8 @@ services:
       - backend
     restart: always
     environment:
-      - ALLOWED_HOSTS=backend,localhost
-      - CISO_ASSISTANT_URL=https://localhost:8443
+      - ALLOWED_HOSTS=backend,bravorisk.ai
+      - CISO_ASSISTANT_URL=https://bravorisk.ai:8443
       - DJANGO_DEBUG=False
       - HOME=/tmp
       - XDG_CACHE_HOME=/tmp/.cache
@@ -69,7 +69,7 @@ services:
     container_name: frontend
     environment:
       - PUBLIC_BACKEND_API_URL=http://backend:8000/api
-      - PUBLIC_BACKEND_API_EXPOSED_URL=https://localhost:8443/api
+      - PUBLIC_BACKEND_API_EXPOSED_URL=https://bravorisk.ai:8443/api
       - PROTOCOL_HEADER=x-forwarded-proto
       - HOST_HEADER=x-forwarded-host
       - HOME=/tmp
@@ -143,7 +143,7 @@ services:
     container_name: caddy
     image: ${CADDY_IMAGE:-caddy:2.11.4}
     environment:
-      - CISO_ASSISTANT_URL=https://localhost:8443
+      - CISO_ASSISTANT_URL=https://bravorisk.ai:8443
     restart: unless-stopped
     ports:
       - 127.0.0.1:8443:8443
@@ -154,6 +154,7 @@ services:
       reverse_proxy /api/* backend:8000
       reverse_proxy /mcp* mcp:8001
       reverse_proxy /* frontend:3000
+      tls internal
       }" > Caddyfile && caddy run'
 
 volumes:
